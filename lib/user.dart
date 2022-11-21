@@ -8,6 +8,7 @@ class User extends StatefulWidget {
 }
 
 class _UserState extends State<User> {
+
   @override
   var premium='';
   TextEditingController premium_Controller = TextEditingController();
@@ -105,7 +106,9 @@ class _UserState extends State<User> {
                                 style: ButtonStyle(),
                               ),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, 'apply');
+                                  },
                                   child: Text(
                                     'Apply',
                                     style: TextStyle(
