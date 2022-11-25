@@ -21,20 +21,22 @@ class _MyLoginState extends State<MyLogin> {
   TextEditingController emailController = TextEditingController();
   bool pass = false;
 
-  Future<String> check(email,password) async {
+  Future<bool> check(email,password) async {
     dbHelper.table='r';
     dbHelper.databaseName='test';
     String b = await dbHelper.checkLogin(email);
     print("we have b");
     print(b);
-    // if(b==password.toString()){
-    //   pass = true;
-    // }
-    // else{
-    //   pass = false;
-    // }
+    if(b==password.toString()){
+      pass = true;
+    }
+    else{
+      pass = false;
+    }
 
-    return b;
+    print("here is pass");
+    print(pass);
+    return pass;
   }
 
 
@@ -119,14 +121,15 @@ class _MyLoginState extends State<MyLogin> {
                                 backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {
+                                    onPressed: () async {
                                       print("here");
                                       // print(check(email,password));
                                       // final res = check(email,password);
                                       // print("res");
                                       // print(res);
-                                      check(email,password);
+                                      await check(email,password);
                                       // print(pass.toString());
+
                                       if(pass==true){
                                         Navigator.pushNamed(context, 'home');
                                       }
