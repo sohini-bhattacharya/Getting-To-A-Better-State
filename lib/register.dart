@@ -55,15 +55,15 @@ class _MyRegisterState extends State<MyRegister> {
   // TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        body: Stack(
-          children: [
+        elevation: 0,
+      ),
+        body: SafeArea(child:
+          SingleChildScrollView(
+          child: Stack(children: [
             Container(
               padding: EdgeInsets.only(left: 35, top: 30),
               child: Text(
@@ -71,10 +71,10 @@ class _MyRegisterState extends State<MyRegister> {
                 style: TextStyle(color: Colors.white, fontSize: 33),
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
+
+               Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.28),
+                    top: MediaQuery.of(context).size.height * 0.20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -303,10 +303,8 @@ class _MyRegisterState extends State<MyRegister> {
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+      ],)),
+       ),
+            );
   }
 }

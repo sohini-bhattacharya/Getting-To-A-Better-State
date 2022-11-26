@@ -26,16 +26,15 @@ class _EditState extends State<Edit> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-        ),
-        body: Stack(
-          children: [
+      ),
+        body: SafeArea(child:
+        SingleChildScrollView(
+        child: Stack(children: [
             Container(
               padding: EdgeInsets.only(left: 35, top: 100),
               child: Text(
@@ -206,7 +205,7 @@ class _EditState extends State<Edit> {
           ],
 
         ),
-      ),
+      ),),
     );
   }
 }

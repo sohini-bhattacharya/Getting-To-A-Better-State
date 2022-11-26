@@ -12,7 +12,7 @@ import 'edit.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyLogin(),
+    home: MyHome(),
     routes: {
       'user': (context) => User(),
       'register': (context) => MyRegister(),
