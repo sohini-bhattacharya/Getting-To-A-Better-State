@@ -25,12 +25,28 @@ class _MyLoginState extends State<MyLogin> {
   bool pass = false;
 
   Future<bool> check(email,password) async {
+
     dbHelper.table='r';
     dbHelper.databaseName='test';
     String b = await dbHelper.checkLogin('r',email);
     // dbHelper.ageTrigger();
     print("we have b");
     print(b);
+
+    // await dbHelper.managerTrigger();
+
+    print("this is l table");
+    await dbHelper.queryRows('l');
+
+
+    // await dbHelper.insertPremium("a", "em1", "male", 12, 34);
+    // await dbHelper.insertPremium("x", "em2", "female", 14, 3432);
+    await dbHelper.queryRows('r');
+    await dbHelper.joinFunction();
+
+
+    // await dbHelper.generateManagerFunction();
+    // await dbHelper.estimateFunction();
     // await dbHelper.makeManager();
     if(b==password.toString()){
       pass = true;

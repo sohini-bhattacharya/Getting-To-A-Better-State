@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'dart:developer' as developer;
 import 'package:sqflite/sqflite.dart';
+import 'package:intl/intl.dart';
 
 class DatabaseHelper {
 
@@ -70,29 +71,61 @@ class DatabaseHelper {
           )
           ''');
 
+    await db.execute('''
+          CREATE TABLE a (
+            P_ID INTEGER PRIMARY KEY,
+            APPROVED TEXT,
+            FOREIGN KEY (P_ID) REFERENCES l(P_ID),
+          )
+          ''');
+
+
     print("done1");
 
 
   }
 
-  // create function premium(age int,gender varchar(2))returns int deterministic
-  // -> begin
-  // -> declare result int;
-  // -> if age<20 and gender='M' then
-  // -> set result=68;
-  // -> elseif age<20 and gender='F' then
-  // -> set result=55;
-  // -> elseif age>=20 and age<40 and gender='M' then
-  // -> set result=137;
-  // -> elseif age>=20 and age<40 and gender='F' then
-  // -> set result=107;
-  // -> elseif age>=40 and gender='M' then
-  // -> set result=244;
-  // -> else
-  // -> set result=173;
-  // -> end if;
-  // -> return result;
-  // -> end//
+
+
+  Future joinSpecificFunction(id) async {
+    Database db = await instance.database;
+    List<Map> result = await db.rawQuery('''
+    SELECT * FROM r INNER JOIN l ON r.EMAIL = l.EMAIL WHERE M_ID="${id}"
+    ''');
+
+    // SELECT table1.column1,table1.column2,table2.column1,....
+    // FROM table1
+    // INNER JOIN table2
+    // ON table1.matching_column = table2.matching_column;
+
+    print("join is here");
+    print(result);
+    print(result[0]);
+    print(result[1]);
+  }
+
+  Future beginTransaction() async {
+    Database db = await instance.database;
+    await db.execute('''
+          BEGIN TRANSACTION
+          ''');
+  }
+
+  Future approvedOrNot(st) async {
+
+    Database db = await instance.database;
+    if(st=true) {
+      await db.execute('''
+          COMMIT
+          ''');
+    }
+    else {
+      await db.execute('''
+          ROLLBACK
+          ''');
+    }
+
+  }
 
   Future makeUser() async {
     Database db = await instance.database;
@@ -126,6 +159,9 @@ class DatabaseHelper {
           )
           ''');
     }
+
+
+
     // Future getAttributes() asy
     Future makeManager() async {
       Database db = await instance.database;
@@ -145,7 +181,7 @@ class DatabaseHelper {
     Future delimiter() async {
       Database db = await instance.database;
       await db.execute('''
-    delimiter //
+    DELIMITER //
     ''');
     }
 
@@ -167,30 +203,64 @@ class DatabaseHelper {
     END
     ''');
     }
-//
-//     Future applyPremium() async {
-//       Database db = await instance.database;
-//       // return await db.insert(table, {'name': Name, 'Username': Username,'Password':password});
-//       // await db.execute('''
-//       // CREATE TRIGGER AGE_BRACKET
-//       // BEFORE INSERT ON $table FOR EACH ROW BEGIN
-//       // SET NEW.AGE = YEAR(CURTIME())-YEAR(NEW.BIRTHDATE);
-//       // END;
-//       // ''');
-//       await db.execute('''
-//     CREATE PROCEDURE
-//    UPDATE table_name
-// SET column_name1= value1, column_name2= value2
-// WHERE condition;
-//     ''');
-//     }
 
-  Future logTableEntries(username, gender, age) async {
+  Future managerTrigger() async {
     Database db = await instance.database;
 
-    await updateAge(username, age);
-    await updateGender(username, gender);
+    await db.execute('''
+    CREATE TRIGGER MS1
+    AFTER INSERT ON l FOR EACH ROW
+    BEGIN
+    UPDATE l
+    SET M_ID = CASE GENDER WHEN "male" THEN "em1"
+    WHEN "female" THEN "em2"
+    ELSE "em3"
+    END;
+    END
+    ''');
   }
+
+
+  Future estimateFunction() async {
+    Database db = await instance.database;
+    await db.rawQuery('''
+    CREATE FUNCTION ESTIMATE(AGE INT, GENDER VARCHAR(20))
+    RETURNS INT DETERMINISTIC
+    BEGIN
+    DECLARE RESULT INT;
+    IF AGE<20 AND GENDER='male' THEN
+    SET RESULT = 68;
+    ELSEIF AGE<20 AND GENDER='female' THEN
+    SET RESULT = 55;
+    ELSEIF AGE>=20 AND AGE<40 AND GENDER='male' THEN
+    SET RESULT = 137;
+    ELSEIF AGE>=20 AND AGE<40 AND GENDER='female' THEN
+    SET RESULT = 107;
+    ELSEIF AGE>=40 AND GENDER='male' THEN
+    SET RESULT = 244;
+    ELSE
+    SET RESULT = 173;
+    END IF;
+    RETURN RESULT;
+    END
+    ''');
+  }
+  Future estimateTrigger() async {
+    Database db = await instance.database;
+
+    await db.execute('''
+    CREATE TRIGGER EST
+    AFTER INSERT ON l FOR EACH ROW
+    BEGIN
+    UPDATE l
+    SET M_ID = CASE GENDER WHEN "male" THEN "em1"
+    WHEN "female" THEN "em2"
+    ELSE "em3"
+    END;
+    END
+    ''');
+  }
+
 
     Future insertPremium(username, m_id, gender, age, amt) async {
       Database db = await instance.database;
@@ -204,57 +274,137 @@ class DatabaseHelper {
       // EDIT_TIME DATETIME NOT NULL,
       // FOREIGN KEY (EMAIL) REFERENCES r(EMAIL)
       // FOREIGN KEY (M_ID) REFERENCES m(M_ID)
+
+      DateTime now = DateTime.now();
+      String formattedTime = DateFormat("yyyy-MM-dd").format(now);
+
       await db.execute('''
-          INSERT INTO l (EMAIL,M_ID,GENDER,AGE,AMT,EDIT_TIME) values("${username}","${m_id}","${gender}","${age}","${amt}","curtime()")''');
+          INSERT INTO l (EMAIL,M_ID,GENDER,AGE,AMT,EDIT_TIME) values("${username}","${m_id}","${gender}","${age}","${amt}","${formattedTime}")''');
     }
 
 
 
-  Future estimatePremium(username,gender,age) async {
-    Database db = await instance.database;
-    await db.execute('''
-    ESTIMATE(${age} "''');
 
-    // await updateAge(username, age);
-    // await updateGender(username, gender);
-    // await updateAddress(username, address);
-    // await updateWorksAt(username, worksAt);
+  Future estimatePremium(gender,age) async {
+    Database db = await instance.database;
+    List<Map> result = await db.rawQuery('''
+    SELECT ESTIMATE(${age},"${gender}")
+    ''');
+    print(result);
+    print(result[0]);
+
   }
 
-  Future estimateFunction() async {
+
+
+
+  Future<int> predictPremium(gender,age) async{
+    int result = 0;
+    if(age<20){
+      if(gender=="male"){
+        result=68;
+      }
+      else{
+        result=55;
+      }
+    }
+    else if(age>=20&&age<40){
+      if(gender=="male"){
+        result=137;
+      }
+      else{
+        result=107;
+      }
+
+    }
+    else if(age>=40){
+      if(gender=="male"){
+        result=244;
+      }
+
+    }
+    else{
+      result=173;
+    }
+    return result;
+  }
+
+
+
+
+  Future joinFunction() async {
     Database db = await instance.database;
-    await db.execute('''
-    CREATE FUNCTION ESTIMATE(AGE INT,GENDER TEXT)
-    RETURNS INT DETERMINISTIC
+    List<Map> result = await db.rawQuery('''
+   SELECT * FROM r INNER JOIN l ON r.EMAIL = l.EMAIL
+    ''');
+
+    // SELECT table1.column1,table1.column2,table2.column1,....
+    // FROM table1
+    // INNER JOIN table2
+    // ON table1.matching_column = table2.matching_column;
+
+    print("join is here");
+    print(result);
+    print(result[0]);
+    print(result[1]);
+  }
+
+  Future age_Trigger() async {
+    print("hello");
+    Database db = await instance.database;
+
+    DateTime now = DateTime.now();
+    String formattedTime = DateFormat("yyyy").format(now);
+
+    // var year = await db.rawQuery('''SELECT AGE FROM r''');
+    await db.rawQuery('''
+    CREATE TRIGGER ABC
+    AFTER INSERT ON r FOR EACH ROW
     BEGIN
-    DECLARE EST INT;
-    SET EST = ''');
+    UPDATE r SET AGE = );
+    END
+    ''');
   }
 
-  // Future generateManager(gender) async {
-  //   Database db = await instance.database;
-  //   await db.execute('''
-  //   CREATE FUNCTION GENERATE(GENDER TEXT)
-  //   RETURNS TEXT
-  //   BEGIN
-  //   DECLARE GM TEXT;
-  //   IF GENDER="female"''');
-  //   // await updateAge(username, age);
-  //   // await updateGender(username, gender);
-  //   // await updateAddress(username, address);
-  //   // await updateWorksAt(username, worksAt);
-  // }
-  //
+  Future assignManager(gender) async {
+    Database db = await instance.database;
+    List<Map> result = await db.rawQuery('''
+    SELECT GENERATE("${gender}")"
+    ''');
+    print(result);
+    print(result[0]);
+
+  }
+
+
+
+  Future generateManagerFunction() async {
+    Database db = await instance.database;
+    await db.rawQuery('''
+    CREATE FUNCTION GENERATE(GENDER VARCHAR(20))
+    RETURNS VARCHAR(20)
+    BEGIN
+    DECLARE GM VARCHAR(20);
+    IF GENDER="female" THEN
+    SET GM = 'em1';
+    ELSEIF GENDER="male" THEN
+    SET GM = 'em2';
+    ELSE
+    SET GM = 'em3';
+    END IF;
+    RETURN GM;
+    END
+    ''');
+
+  }
+
 
 
   Future editDetails(username,gender,age,address,worksAt) async {
       Database db = await instance.database;
       await db.execute('''
     UPDATE r SET WORKS="${worksAt}", ADDRESS="${address}", GENDER="${gender}", AGE="${age}" WHERE EMAIL="${username}"''');
-      // await updateAge(username, age);
-      // await updateGender(username, gender);
-      // await updateAddress(username, address);
-      // await updateWorksAt(username, worksAt);
+
     }
 
 
@@ -290,19 +440,7 @@ class DatabaseHelper {
     }
 
 
-    // ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    // NAME TEXT NOT NULL,
-    //     EMAIL Text NOT NULL UNIQUE,
-    //     PASSWORD Text NOT NULL,
-    // ADDRESS Text NOT NULL,
-    //     AADHAR INTEGER NOT NULL UNIQUE,
-    //     BIRTHDATE DATE NOT NULL
 
-    // Helper methods
-
-    // Inserts a row in the database where each key in the Map is a column name
-    // and the value is the column value. The return value is the id of the
-    // inserted row.
     Future insert(String name, String email, String password, String address,
         String aadhar, String birthdate) async {
       Database db = await instance.database;
@@ -310,11 +448,6 @@ class DatabaseHelper {
       await db.execute('''
           INSERT INTO $table(NAME,EMAIL,PASSWORD,ADDRESS,AADHAR,BIRTHDATE) values("${name}","${email}","${password}","${address}","${aadhar}","${birthdate}")''');
     }
-
-    // M_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    // NAME TEXT NOT NULL,
-    //     EMAIL TEXT NOT NULL UNIQUE,
-    //     PASSWORD TEXT NOT NULL,
 
 
     Future insertManager(String name, String email, String password) async {
@@ -334,34 +467,8 @@ class DatabaseHelper {
       print("here with the result");
       print(result);
       print(result[0]);
-      // print(result[0][0]);
       print(result[0]["PASSWORD"]);
-      // print(password);
-      // if (result[0]["PASSWORD"].toString()==password.toString()){
-      //   b=true;
-      // }
-      // else{
 
-      //   b=false;
-      // }
-      //
-      // List<Map> list1 = [];
-
-
-      // list1.add("ID :" + result[0]["ID"]);
-      // list1.add("NAME :" + result[0]["NAME"]);
-      // list1.add("EMAIL :" + result[0]["EMAIL"]);
-      // list1.add("ADDRESS :" + result[0]["ADDRESS"]);
-      // list1.add("AADHAR :" + result[0]["AADHAR"]);
-      // list1.add("BIRTHDATE :" + result[0]["BIRTHDATE"]);
-      // list1.add("AGE :" + result[0]["AGE"]);
-      //
-      // print("list");
-      // print(list1);
-
-
-      // print(b);
-      // return(b);
       return result[0]["PASSWORD"];
     }
 
@@ -369,7 +476,6 @@ class DatabaseHelper {
       Database db = await instance.database;
       List<Map> result = await db.query(t);
 
-      // print the results
       result.forEach((row) => print(row));
     }
 
@@ -392,14 +498,10 @@ class DatabaseHelper {
       ];
 
       print(list);
-      // print(result.length);
-      // developer.log(result.toString());
+
       return list;
-      // await db.execute('''SELECT * FROM $table WHERE EMAIL="$email"''');
     }
 
-    // All of the methods (insert, query, update, delete) can also be done using
-    // raw SQL commands. This method uses a raw query to give the row count.
     Future<int?> queryRowCount() async {
       Database db = await instance.database;
       return Sqflite.firstIntValue(

@@ -20,7 +20,8 @@ class _MyRegisterState extends State<MyRegister> {
     dbHelper.table='r';
     dbHelper.databaseName='test';
 
-    await dbHelper.makeManager();
+
+    // await dbHelper.makeManager();
     final id = await dbHelper.insert(name,email,password,address,aadhar,birthdate);
     print('inserted row id: $id');
   }

@@ -7,19 +7,20 @@ class ManagerLogin extends StatefulWidget {
   @override
   _ManagerLoginState createState() => _ManagerLoginState();
 }
+String email_manager = "";
+
 class _ManagerLoginState extends State<ManagerLogin> {
   final dbHelper = DatabaseHelper.instance;
 
-  String email = "";
   String password = "";
   TextEditingController passwordController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController email_managerController = TextEditingController();
   bool pass = false;
 
-  Future<bool> check(email,password) async {
+  Future<bool> check(email_manager,password) async {
     dbHelper.table='m';
     dbHelper.databaseName='test';
-    String b = await dbHelper.checkLogin('m',email);
+    String b = await dbHelper.checkLogin('m',email_manager);
     print("we have b");
     print(b);
     if(b==password.toString()){
@@ -81,8 +82,8 @@ class _ManagerLoginState extends State<ManagerLogin> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
-                            controller: emailController,
-                            onChanged: (v) => setState(() => email=v),
+                            controller: email_managerController,
+                            onChanged: (v) => setState(() => email_manager=v),
                           ),
                           SizedBox(
                             height: 30,
@@ -117,10 +118,10 @@ class _ManagerLoginState extends State<ManagerLogin> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () async {
-                                      await check(email,password);
+                                      await check(email_manager,password);
 
                                       if(pass==true){
-                                        Navigator.pushNamed(context, 'home');
+                                        Navigator.pushNamed(context, 'managerView');
                                       }
                                       else{
                                         final snackBar = SnackBar(

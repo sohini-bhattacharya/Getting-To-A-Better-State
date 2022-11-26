@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dbms/database_helper.dart';
 
+import 'login.dart';
+
 class Apply extends StatefulWidget {
   const Apply({Key? key}) : super(key: key);
 
@@ -8,7 +10,7 @@ class Apply extends StatefulWidget {
   _ApplyState createState() => _ApplyState();
 }
 
-String amt = "";
+int amt = 0;
 String m_id = "";
 String username = "";
 TextEditingController usernameController = TextEditingController();
@@ -17,11 +19,14 @@ TextEditingController genderController = TextEditingController();
 String age = "";
 TextEditingController ageController = TextEditingController();
 
+
 class _ApplyState extends State<Apply> {
   final dbHelper = DatabaseHelper.instance;
 
   @override
   Widget build(BuildContext context) {
+
+
     return Container(
 
       child: Scaffold(
@@ -108,12 +113,18 @@ class _ApplyState extends State<Apply> {
                               TextButton(
                                 onPressed: () async {
 
+                                  amt = await dbHelper.predictPremium(gender,int.parse(age));
+                                  await dbHelper.beginTransaction();
+                                  await dbHelper.insertPremium(email, m_id, gender, age, amt);
+                                  // await dbHelper.
+                                  // Navigator.of(context).pop(); // dismiss dialog
+                                  // dialogForApprove();
 
-                                  amt="hello";
-                                  // amt = await dbHelper.estimatePremium(username,gender,age);
+                                  // print(amt.toString());
                                   // m_id = await dbHelper.generateManager(gender);
 
                                 },
+
                                 child: Text(
                                   'Estimate Premium',
                                   textAlign: TextAlign.left,
@@ -123,12 +134,14 @@ class _ApplyState extends State<Apply> {
                                       fontSize: 22),
                                 ),
                                 style: ButtonStyle(),
+
                               ),
+
                             TextButton(
                               onPressed: () async {
 
                               },
-                              child: Text("$num",
+                              child: Text("${amt}",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -146,9 +159,40 @@ class _ApplyState extends State<Apply> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-                                onPressed: () async {
+                              onPressed: () async {
+                              // bool result = await showDialog(
+                              // context: context,
+                              // builder: (context) {
+            //                     return AlertDialog(
+            //                     title: Text('Confirmation'),
+            //                     content: Text('Do you want to commit?'),
+            //                       actions: <Widget>[
+            //                               FlatButton(
+            //                             onPressed: () {
+            //                                 Navigator.of(context, rootNavigator: true).pop(false);},
+            //                                   child: Text('No'),
+            //                               ),
+            //                               FlatButton(
+            //                             onPressed: () {
+            //                               Navigator.of(context, rootNavigator: true).pop(true);},
+            //                                   child: Text('Yes'),),],);
+            //                   }},
+            //                       );
+            //                   if (result) {
+            //                     if (missingvalue) {
+            //                       Scaffold.of(context).showSnackBar(new SnackBar(
+            //                         content: new Text('Missing Value'),));
+            //                     } else {
+            //                       saveObject();
+            //                       Navigator.of(context).pop(_myObject); // dismisses the entire widget
+            //                       // }} else {
+            // Navigator.of(context).pop(_myObject); // dismisses the entire widget
+            // }
+            // }
 
-                                  await dbHelper.insertPremium(username, m_id, gender, age, amt);
+                                  await dbHelper.queryRows('a');
+                                  await dbHelper.queryRows('l');
+                                  Navigator.pushNamed(context, 'home');
                                 },
                                 child: Text(
                                   'Apply for Premium',
