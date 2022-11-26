@@ -54,6 +54,12 @@ http_parser
 2.12
 file:///opt/homebrew/Caskroom/flutter/3.3.8/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2/
 file:///opt/homebrew/Caskroom/flutter/3.3.8/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2/lib/
+file:///usr/local/Caskroom/flutter/3.3.2/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2/
+file:///usr/local/Caskroom/flutter/3.3.2/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2/lib/
+intl
+2.12
+file:///usr/local/Caskroom/flutter/3.3.2/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/
+file:///usr/local/Caskroom/flutter/3.3.2/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/lib/
 js
 2.16
 file:///opt/homebrew/Caskroom/flutter/3.3.8/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/
@@ -194,6 +200,8 @@ win32
 2.17
 file:///opt/homebrew/Caskroom/flutter/3.3.8/flutter/.pub-cache/hosted/pub.dartlang.org/win32-3.1.1/
 file:///opt/homebrew/Caskroom/flutter/3.3.8/flutter/.pub-cache/hosted/pub.dartlang.org/win32-3.1.1/lib/
+file:///usr/local/Caskroom/flutter/3.3.2/flutter/.pub-cache/hosted/pub.dartlang.org/win32-3.1.2/
+file:///usr/local/Caskroom/flutter/3.3.2/flutter/.pub-cache/hosted/pub.dartlang.org/win32-3.1.2/lib/
 xdg_directories
 2.12
 file:///opt/homebrew/Caskroom/flutter/3.3.8/flutter/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0+2/

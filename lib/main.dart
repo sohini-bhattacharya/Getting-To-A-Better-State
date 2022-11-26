@@ -6,6 +6,9 @@ import 'package:dbms/login.dart';
 import 'package:dbms/register.dart';
 import 'package:dbms/home.dart';
 import 'apply.dart';
+import 'checkPremium.dart';
+import 'clientAll.dart';
+import 'clientYour.dart';
 import 'managerLogin.dart';
 import 'edit.dart';
 
@@ -23,7 +26,13 @@ void main() {
       'apply': (context) => Apply(),
       'userProfile': (context) => UserProfile(),
       'edit': (context) => Edit(),
-      
+      'checkPremium': (context) => CheckPremium(),
+      'managerView': (context) => ManagerView(),
+      'clientAll': (context) => clientAll(),
+      'clientYour': (context) => clientYour(),
+      // 'approveTransactions': (context) => Approve(),
     },
-  ));
+  )
+  );
+
 }

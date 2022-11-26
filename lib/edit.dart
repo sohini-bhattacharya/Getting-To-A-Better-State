@@ -176,6 +176,7 @@ class _EditState extends State<Edit> {
 
                                   await dbHelper.queryRows('r');
 
+
                                   Navigator.pushNamed(context, 'userProfile');
                                 },
                                 child: Text(
