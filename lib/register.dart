@@ -11,35 +11,21 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   final dbHelper = DatabaseHelper.instance;
 
-  void instantiate() async{
-    // dbHelper.delimiter();
-    await dbHelper.ageTrigger();
-  }
+  // void instantiate() async{
+  //   // dbHelper.delimiter();
+  //   await dbHelper.ageTrigger();
+  // }
   void _insert(name,email,password,address,aadhar,birthdate) async {
     // row to insert
     dbHelper.table='r';
     dbHelper.databaseName='test';
 
-    // Map<String, dynamic> row = {
-    //   DatabaseHelper.columnName: name,
-    //   DatabaseHelper.Username:username,
-    //   DatabaseHelper.Password:password,
-    // };
-
-    // ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    // NAME TEXT NOT NULL,
-    // EMAIL Text NOT NULL UNIQUE,
-    // PASSWORD Text NOT NULL,
-    // ADDRESS Text NOT NULL,
-    // AADHAR INTEGER NOT NULL UNIQUE,
-    // BIRTHDATE DATE NOT NULL,
-    // AGE INTEGER
-
+    await dbHelper.makeManager();
     final id = await dbHelper.insert(name,email,password,address,aadhar,birthdate);
     print('inserted row id: $id');
   }
   void _queryAll() async {
-    var e = await dbHelper.queryRows(email);
+    var e = await dbHelper.queryRows('r');
     print(e);
   }
   void _delete(id) async {
@@ -269,7 +255,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
-                                      instantiate();
+                                      // instantiate();
                                       _insert(name,email,password,address,aadhar,birthdate);
                                       //_delete(1);
                                       //_delete(2);

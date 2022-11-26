@@ -68,7 +68,7 @@ class _MyHomeState extends State<MyHome> {
                                 child: IconButton(
                                     iconSize: 40.0,
                                     color: Colors.white,
-                                    onPressed: () {},
+                                    onPressed: () { Navigator.pushNamed(context, 'manager');},
                                     icon: Icon(
                                       Icons.supervised_user_circle,
                                     )),

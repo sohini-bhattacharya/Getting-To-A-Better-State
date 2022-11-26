@@ -6,6 +6,9 @@ import 'package:dbms/database_helper.dart';
 import 'package:mysql1/mysql1.dart';
 import 'dart:developer' as developer;
 
+String email = "";
+var list = [];
+
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
 
@@ -15,7 +18,7 @@ class MyLogin extends StatefulWidget {
 class _MyLoginState extends State<MyLogin> {
   final dbHelper = DatabaseHelper.instance;
 
-  String email = "";
+
   String password = "";
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -24,9 +27,11 @@ class _MyLoginState extends State<MyLogin> {
   Future<bool> check(email,password) async {
     dbHelper.table='r';
     dbHelper.databaseName='test';
-    String b = await dbHelper.checkLogin(email);
+    String b = await dbHelper.checkLogin('r',email);
+    // dbHelper.ageTrigger();
     print("we have b");
     print(b);
+    // await dbHelper.makeManager();
     if(b==password.toString()){
       pass = true;
     }
@@ -49,10 +54,6 @@ class _MyLoginState extends State<MyLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //       image: AssetImage('assets/login.png'), fit: BoxFit.cover),
-      // ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
@@ -82,7 +83,7 @@ class _MyLoginState extends State<MyLogin> {
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
-                                hintText: "Email",
+                                hintText: "Username",
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
@@ -123,15 +124,12 @@ class _MyLoginState extends State<MyLogin> {
                                     color: Colors.white,
                                     onPressed: () async {
                                       print("here");
-                                      // print(check(email,password));
-                                      // final res = check(email,password);
-                                      // print("res");
-                                      // print(res);
+
                                       await check(email,password);
-                                      // print(pass.toString());
+                                      list = await dbHelper.getAttributes('r',email);
 
                                       if(pass==true){
-                                        Navigator.pushNamed(context, 'home');
+                                        Navigator.pushNamed(context, 'userProfile');
                                       }
                                       else{
                                         final snackBar = SnackBar(
