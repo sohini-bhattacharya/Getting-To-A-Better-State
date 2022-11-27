@@ -13,5 +13,5 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## Steps
-1) Open the Github project repository .
+1) Open the Github project repository . https://github.com/sohini-bhattacharya/dbms.git
 
