@@ -13,6 +13,10 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   final dbHelper = DatabaseHelper.instance;
 
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   @override
   void initState() {
     super.initState();
@@ -37,9 +41,12 @@ class _UserProfileState extends State<UserProfile> {
            padding: EdgeInsets.only(left: 60 , bottom: 10, top: 50),
            child: Text(
              'Your Profile',
-             style: TextStyle(color: Colors.white, fontSize: 40),
+             style: new TextStyle(
+                 fontSize: 40.0,
+                 fontWeight: FontWeight.bold,
+                 foreground: Paint()..shader = linearGradient),
            ),
-         ),
+           ),
           Container( width: MediaQuery.of(context).size.width*0.99,
             height:  MediaQuery.of(context).size.height*0.66,
             child: ListView.builder(
@@ -85,7 +92,14 @@ class _UserProfileState extends State<UserProfile> {
                                   color: Colors.white,
                                   fontSize: 12),
                             ),
-                            style: ButtonStyle(),
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(22.0),
+                                          side: BorderSide(color: Color(0xffD989B5))
+                                      )
+                                  )
+                              )
                           ),
                           TextButton(
                             onPressed: () async {
@@ -100,7 +114,14 @@ class _UserProfileState extends State<UserProfile> {
                                   color: Colors.white,
                                   fontSize: 12),
                             ),
-                            style: ButtonStyle(),
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(22.0),
+                                          side: BorderSide(color: Color(0xffD989B5))
+                                      )
+                                  )
+                              )
                           ),
                           TextButton(
                             onPressed: () async {
@@ -115,7 +136,14 @@ class _UserProfileState extends State<UserProfile> {
                                   color: Colors.white,
                                   fontSize: 12),
                             ),
-                            style: ButtonStyle(),
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(22.0),
+                                          side: BorderSide(color: Color(0xffD989B5))
+                                      )
+                                  )
+                              )
                           ),
                           // Row(
                           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,

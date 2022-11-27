@@ -15,6 +15,12 @@ class _MyRegisterState extends State<MyRegister> {
   //   // dbHelper.delimiter();
   //   await dbHelper.ageTrigger();
   // }
+
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+
   void _insert(name,email,password,address,aadhar,birthdate) async {
     // row to insert
     dbHelper.table='r';
@@ -25,10 +31,12 @@ class _MyRegisterState extends State<MyRegister> {
     final id = await dbHelper.insert(name,email,password,address,aadhar,birthdate);
     print('inserted row id: $id');
   }
+
   void _queryAll() async {
     var e = await dbHelper.queryRows('r');
     print(e);
   }
+
   void _delete(id) async {
     // Assuming that the number of rows is the id for the last row.
     final rowsDeleted = await dbHelper.delete(id);
@@ -68,8 +76,11 @@ class _MyRegisterState extends State<MyRegister> {
             Container(
               padding: EdgeInsets.only(left: 35, top: 30),
               child: Text(
-                'Create\nAccount',
-                style: TextStyle(color: Colors.white, fontSize: 33),
+                'Register ',
+                style: new TextStyle(
+                    fontSize: 60.0,
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()..shader = linearGradient),
               ),
             ),
 
@@ -89,7 +100,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -115,7 +126,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -141,7 +152,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -167,7 +178,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -193,7 +204,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -220,7 +231,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -241,63 +252,70 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 15,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.w700),
+                              SizedBox.fromSize(
+                                size: Size(65, 65), // button width and height
+                                child: ClipOval(
+                                  child: Material(
+                                    color: Colors.grey[700], // button color
+                                    child: InkWell(
+                                      splashFactory: InkRipple.splashFactory,
+                                      splashColor: Color(0xff8921aa), // splash color
+                                      borderRadius: BorderRadius.circular(50),
+                                      // highlightColor: Color(0xff8921aa) ,
+                                      onTap:() async {
+                                        _insert(name,email,password,address,aadhar,birthdate);
+                                                    _queryAll();
+                                        //
+                                                    final snackBar = SnackBar(
+                                                      content: const Text('Success'),);
+                                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                    Navigator.pushNamed(context, 'login');
+                                        // Navigator.pushNamed(context, 'userProfile');
+                                      }, // button pressed
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(Icons.arrow_forward, color: Colors.white,
+                                          ),// icon
+                                          // Text("Sign Up", style: TextStyle(color:Colors.white)), // text
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xff4c505b),
-                                child: IconButton(
-                                    color: Colors.white,
-                                    onPressed: () {
-                                      // instantiate();
-                                      _insert(name,email,password,address,aadhar,birthdate);
-                                      //_delete(1);
-                                      //_delete(2);
-                                      //_delete(3);
-
-                                      _queryAll();
-
-                                      final snackBar = SnackBar(
-                                        content: const Text('Success'),);
-                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                      Navigator.pushNamed(context, 'login');
-                                    },
-
-                                    icon: Icon(
-                                      Icons.arrow_forward,
-                                    )),
-                              )
+                          //     CircleAvatar(
+                          //       radius: 30,
+                          //       backgroundColor: Color(0xff4c505b),
+                          //       child: IconButton(
+                          //           color: Colors.white,
+                          //           onPressed: () {
+                          //             // instantiate();
+                          //             _insert(name,email,password,address,aadhar,birthdate);
+                          //             //_delete(1);
+                          //             //_delete(2);
+                          //             //_delete(3);
+                          //
+                          //             _queryAll();
+                          //
+                          //             final snackBar = SnackBar(
+                          //               content: const Text('Success'),);
+                          //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          //             Navigator.pushNamed(context, 'login');
+                          //           },
+                          //
+                          //           icon: Icon(
+                          //             Icons.arrow_forward,
+                          //           )),
+                          //     )
                             ],
                           ),
                           SizedBox(
                             height: 40,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, 'login');
-                                },
-                                child: Text(
-                                  'Sign In',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.white,
-                                      fontSize: 18),
-                                ),
-                                style: ButtonStyle(),
-                              ),
-                            ],
-                          )
+
                         ],
                       ),
                     )

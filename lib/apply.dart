@@ -23,6 +23,11 @@ TextEditingController ageController = TextEditingController();
 class _ApplyState extends State<Apply> {
   final dbHelper = DatabaseHelper.instance;
 
+
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   @override
   Widget build(BuildContext context) {
 
@@ -40,8 +45,11 @@ class _ApplyState extends State<Apply> {
             Container(
               padding: EdgeInsets.only(left: 35, top: 100),
               child: Text(
-                'Apply',
-                style: TextStyle(color: Colors.white, fontSize: 40),
+                'Apply ',
+                style: new TextStyle(
+                    fontSize: 60.0,
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()..shader = linearGradient),
               ),
             ),
             SingleChildScrollView(
@@ -192,7 +200,7 @@ class _ApplyState extends State<Apply> {
 
                                   await dbHelper.queryRows('a');
                                   await dbHelper.queryRows('l');
-                                  Navigator.pushNamed(context, 'home');
+                                  Navigator.pushNamed(context, 'userProfile');
                                 },
                                 child: Text(
                                   'Apply for Premium',

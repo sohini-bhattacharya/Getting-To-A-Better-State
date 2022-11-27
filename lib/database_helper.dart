@@ -75,13 +75,13 @@ class DatabaseHelper {
           CREATE TABLE a (
             P_ID INTEGER PRIMARY KEY,
             APPROVED TEXT,
-            FOREIGN KEY (P_ID) REFERENCES l(P_ID),
+            FOREIGN KEY (P_ID) REFERENCES l(P_ID)
           )
           ''');
 
+    // await makeManager();
 
     print("done1");
-
 
   }
 
@@ -465,9 +465,9 @@ class DatabaseHelper {
           '''SELECT * FROM ${t} WHERE EMAIL="${email}"''');
 
       print("here with the result");
-      print(result);
-      print(result[0]);
-      print(result[0]["PASSWORD"]);
+      // print(result);
+      // print(result[0]);
+      // print(result[0]["PASSWORD"]);
 
       return result[0]["PASSWORD"];
     }

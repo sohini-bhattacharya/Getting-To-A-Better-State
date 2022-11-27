@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:dbms/database_helper.dart';
+
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+
+  final dbHelper = DatabaseHelper.instance;
 
   final Shader linearGradient = LinearGradient(
     colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
@@ -73,7 +77,15 @@ class _MyHomeState extends State<MyHome> {
                             splashColor: Color(0xff8921aa), // splash color
                             borderRadius: BorderRadius.circular(30),
                             // highlightColor: Color(0xff8921aa) ,
-                            onTap: () { Navigator.pushNamed(context, 'login');}, // button pressed
+                            onTap:() async {
+                              try {
+                          await dbHelper.makeManager();
+                          }
+                          catch(e){
+                          print(e);
+                          }
+                          Navigator.pushNamed(context, 'login');
+                            }, // button pressed
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
