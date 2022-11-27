@@ -111,7 +111,7 @@ class _UserProfileState extends State<UserProfile> {
                               Navigator.pushNamed(context, 'checkPremium');
                             },
                             child: Text(
-                              'Check Premiums',
+                              'Previous Transactions',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   // decoration: TextDecoration.underline,

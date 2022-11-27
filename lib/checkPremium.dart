@@ -36,7 +36,7 @@ class _CheckPremiumState extends State<CheckPremium> {
               alignment: Alignment.topLeft,
               padding: EdgeInsets.only(left: 60 , bottom: 10, top: 50),
               child: Text(
-                  'Your Premiums',
+                  'Previous Transactions',
                 style: new TextStyle(
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
@@ -70,65 +70,65 @@ class _CheckPremiumState extends State<CheckPremium> {
             //                 ),
             //                 title: Text("List item $index"));
             //           })),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox.fromSize(
-                  size: Size(65, 65), // button width and height
-                  child: ClipOval(
-                    child: Material(
-                      color: Colors.grey[700], // button color
-                      child: InkWell(
-                        splashFactory: InkRipple.splashFactory,
-                        splashColor: Color(0xff8921aa), // splash color
-                        borderRadius: BorderRadius.circular(50),
-                        // highlightColor: Color(0xff8921aa) ,
-                        onTap:() {
-                          // _insert(name,email,password,address,aadhar,birthdate);
-                          // _queryAll();
-                          //
-
-                          Navigator.of(context).pop();
-                          // Navigator.pushNamed(context, 'userProfile');
-                        }, // button pressed
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.arrow_back, color: Colors.white,
-                            ),// icon
-                            // Text("Sign Up", style: TextStyle(color:Colors.white)), // text
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                //     CircleAvatar(
-                //       radius: 30,
-                //       backgroundColor: Color(0xff4c505b),
-                //       child: IconButton(
-                //           color: Colors.white,
-                //           onPressed: () {
-                //             // instantiate();
-                //             _insert(name,email,password,address,aadhar,birthdate);
-                //             //_delete(1);
-                //             //_delete(2);
-                //             //_delete(3);
-                //
-                //             _queryAll();
-                //
-                //             final snackBar = SnackBar(
-                //               content: const Text('Success'),);
-                //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                //             Navigator.pushNamed(context, 'login');
-                //           },
-                //
-                //           icon: Icon(
-                //             Icons.arrow_forward,
-                //           )),
-                //     )
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox.fromSize(
+            //       size: Size(65, 65), // button width and height
+            //       child: ClipOval(
+            //         child: Material(
+            //           color: Colors.grey[700], // button color
+            //           child: InkWell(
+            //             splashFactory: InkRipple.splashFactory,
+            //             splashColor: Color(0xff8921aa), // splash color
+            //             borderRadius: BorderRadius.circular(50),
+            //             // highlightColor: Color(0xff8921aa) ,
+            //             onTap:() {
+            //               // _insert(name,email,password,address,aadhar,birthdate);
+            //               // _queryAll();
+            //               //
+            //
+            //               Navigator.of(context).pop();
+            //               // Navigator.pushNamed(context, 'userProfile');
+            //             }, // button pressed
+            //             child: Column(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: <Widget>[
+            //                 Icon(Icons.arrow_back, color: Colors.white,
+            //                 ),// icon
+            //                 // Text("Sign Up", style: TextStyle(color:Colors.white)), // text
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     //     CircleAvatar(
+            //     //       radius: 30,
+            //     //       backgroundColor: Color(0xff4c505b),
+            //     //       child: IconButton(
+            //     //           color: Colors.white,
+            //     //           onPressed: () {
+            //     //             // instantiate();
+            //     //             _insert(name,email,password,address,aadhar,birthdate);
+            //     //             //_delete(1);
+            //     //             //_delete(2);
+            //     //             //_delete(3);
+            //     //
+            //     //             _queryAll();
+            //     //
+            //     //             final snackBar = SnackBar(
+            //     //               content: const Text('Success'),);
+            //     //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            //     //             Navigator.pushNamed(context, 'login');
+            //     //           },
+            //     //
+            //     //           icon: Icon(
+            //     //             Icons.arrow_forward,
+            //     //           )),
+            //     //     )
+            //   ],
+            // ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //   children: [

@@ -12,6 +12,12 @@ String email_manager = "";
 class _ManagerLoginState extends State<ManagerLogin> {
   final dbHelper = DatabaseHelper.instance;
 
+
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+
   String password = "";
   TextEditingController passwordController = TextEditingController();
   TextEditingController email_managerController = TextEditingController();
@@ -58,8 +64,11 @@ class _ManagerLoginState extends State<ManagerLogin> {
               padding: EdgeInsets.only(left: 35, top: 130),
               child:
               Text(
-                'Hey! Manager Login.',
-                style: TextStyle(color: Colors.white, fontSize: 33),
+                'Hey! Manager Login',
+                style: new TextStyle(
+                    fontSize: 60.0,
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()..shader = linearGradient),
               ),
             ),
             SingleChildScrollView(
@@ -103,6 +112,8 @@ class _ManagerLoginState extends State<ManagerLogin> {
                           ),
                           SizedBox(
                             height: 40,
+    //
+
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,28 +123,47 @@ class _ManagerLoginState extends State<ManagerLogin> {
                                 style: TextStyle(
                                     fontSize: 27, fontWeight: FontWeight.w700),
                               ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xff4c505b),
-                                child: IconButton(
-                                    color: Colors.white,
-                                    onPressed: () async {
-                                      await check(email_manager,password);
+                              SizedBox.fromSize(
+                                size: Size(70, 70), // button width and height
+                                child: ClipOval(
+                                  child: Material(
+                                    color: Colors.grey[700], // button color
+                                    child: InkWell(
+                                      splashFactory: InkRipple.splashFactory,
+                                      splashColor: Color(0xff8921aa), // splash color
+                                      borderRadius: BorderRadius.circular(30),
+                                      // highlightColor: Color(0xff8921aa) ,
+                                      onTap:() async {
+                                        await dbHelper.queryRows('m');
+                                                    await check(email_manager,password);
 
-                                      if(pass==true){
+                                              if(pass==true){
+                                                final snackBar = SnackBar(
+                                                  content: const Text('Success'),);
+                                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         Navigator.pushNamed(context, 'managerView');
-                                      }
-                                      else{
+                                        }
+                                              else{
                                         final snackBar = SnackBar(
-                                          content: const Text('Failure'),);
+                                        content: const Text('Failure'),);
                                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward,
-                                    )),
-                              )
+                                        }
+                                        // Navigator.pushNamed(context, 'userProfile');
+                                      }, // button pressed
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(Icons.arrow_forward, color: Colors.white,
+                                          ),// icon
+                                          // Text("", style: TextStyle(color:Colors.white)), // text
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
                             ],
                           ),
                           SizedBox(

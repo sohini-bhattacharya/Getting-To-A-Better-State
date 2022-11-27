@@ -111,6 +111,20 @@ class DatabaseHelper {
           ''');
   }
 
+  Future commitTransaction() async {
+    Database db = await instance.database;
+    await db.execute('''
+          COMMIT
+          ''');
+  }
+
+  Future rollbackTransaction() async {
+    Database db = await instance.database;
+    await db.execute('''
+          ROLLBACK
+          ''');
+  }
+
   Future approvedOrNot(st) async {
 
     Database db = await instance.database;
