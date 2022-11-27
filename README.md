@@ -14,4 +14,9 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Steps
 1) Open the Github project repository . https://github.com/sohini-bhattacharya/dbms.git
+2) Click on code to copy the URL and open Git bash to clone the repository.
+3) Type git clone followed by URL of the the repository.
+4) The repository will be successfully cloned . We can import it into any folder which we want. We have imported a flutter project into our system.
+
+
 
