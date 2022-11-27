@@ -87,22 +87,6 @@ class DatabaseHelper {
 
 
 
-  Future joinSpecificFunction(id) async {
-    Database db = await instance.database;
-    List<Map> result = await db.rawQuery('''
-    SELECT * FROM r INNER JOIN l ON r.EMAIL = l.EMAIL WHERE M_ID="${id}"
-    ''');
-
-    // SELECT table1.column1,table1.column2,table2.column1,....
-    // FROM table1
-    // INNER JOIN table2
-    // ON table1.matching_column = table2.matching_column;
-
-    print("join is here");
-    print(result);
-    print(result[0]);
-    print(result[1]);
-  }
 
   Future beginTransaction() async {
     Database db = await instance.database;
@@ -226,9 +210,9 @@ class DatabaseHelper {
     AFTER INSERT ON l FOR EACH ROW
     BEGIN
     UPDATE l
-    SET M_ID = CASE GENDER WHEN "male" THEN "em1"
-    WHEN "female" THEN "em2"
-    ELSE "em3"
+    SET M_ID = CASE GENDER WHEN "M" THEN "1"
+    WHEN "F" THEN "2"
+    ELSE "3"
     END;
     END
     ''');
@@ -305,7 +289,7 @@ class DatabaseHelper {
     SELECT ESTIMATE(${age},"${gender}")
     ''');
     print(result);
-    print(result[0]);
+    // print(result[0]);
 
   }
 
@@ -356,22 +340,7 @@ class DatabaseHelper {
 
 
 
-  Future joinFunction() async {
-    Database db = await instance.database;
-    List<Map> result = await db.rawQuery('''
-   SELECT * FROM r INNER JOIN l ON r.EMAIL = l.EMAIL
-    ''');
 
-    // SELECT table1.column1,table1.column2,table2.column1,....
-    // FROM table1
-    // INNER JOIN table2
-    // ON table1.matching_column = table2.matching_column;
-
-    print("join is here");
-    print(result);
-    print(result[0]);
-    print(result[1]);
-  }
 
   Future age_Trigger() async {
     print("hello");
@@ -508,6 +477,67 @@ class DatabaseHelper {
     //
     // }
 
+  Future joinSpecificFunction(id) async {
+    Database db = await instance.database;
+    List<Map> result = await db.rawQuery('''
+    SELECT * FROM l JOIN m ON l.M_ID = m.M_ID
+    ''');
+
+
+    List list = [];
+    String a= "";
+    for(int i=0;i<result.length;i++){
+      print("this is list ${i}");
+      a = "P_ID: " + result[i]["P_ID"].toString() + "    AMT: " + result[i]["AMT"].toString() + "    DATE: " + result[i]["EDIT_TIME"].toString();
+      print(a);
+      list.add(a);
+      print(list);
+    }
+    print("join is here");
+    print(result);
+    // print(result[0]);
+    // print(result[1]);
+    return list;
+
+  }
+  // CREATE TABLE r (
+  // ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  // NAME TEXT NOT NULL,
+  //     EMAIL TEXT NOT NULL UNIQUE,
+  //     PASSWORD TEXT NOT NULL,
+  // ADDRESS TEXT NOT NULL,
+  //     AADHAR INTEGER NOT NULL UNIQUE,
+  //     BIRTHDATE DATE NOT NULL,
+  // AGE INTEGER,
+  //     GENDER TEXT,
+  // WORKS TEXT
+  // )
+  // ''');
+
+
+  Future<List> joinFunction() async {
+    Database db = await instance.database;
+    List<Map> result = await db.rawQuery('''
+    SELECT * FROM l 
+    ''');
+
+
+    List list = [];
+    String a= "";
+    for(int i=0;i<result.length;i++){
+      print("this is list ${i}");
+      a = "EMAIL: " + result[i]["EMAIL"].toString() + "    AMT: " + result[i]["AMT"].toString() + "    DATE: " + result[i]["EDIT_TIME"].toString();
+      print(a);
+      list.add(a);
+      print(list);
+    }
+    print("join is here");
+    print(result);
+    // print(result[0]);
+    // print(result[1]);
+    return list;
+  }
+
   Future<List> joinForPremium(email) async {
     Database db = await instance.database;
     List<Map> result = await db.rawQuery('''
@@ -529,8 +559,8 @@ class DatabaseHelper {
     }
     print("join is here");
     print(result);
-    print(result[0]);
-    print(result[1]);
+    // print(result[0]);
+    // print(result[1]);
 
     return list;
   }

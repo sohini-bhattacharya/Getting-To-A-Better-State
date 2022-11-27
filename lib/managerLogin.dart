@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dbms/database_helper.dart';
 
+List clientListAll = [];
+
 class ManagerLogin extends StatefulWidget {
   const ManagerLogin({Key? key}) : super(key: key);
 
@@ -141,7 +143,15 @@ class _ManagerLoginState extends State<ManagerLogin> {
                                                 final snackBar = SnackBar(
                                                   content: const Text('Success'),);
                                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                        Navigator.pushNamed(context, 'managerView');
+
+                                                print("all list is here");
+
+                                                clientListAll = await dbHelper.joinFunction();
+                                                print(clientListAll);
+
+                                                await dbHelper.queryRows('l');
+
+                                                Navigator.pushNamed(context, 'clientAll');
                                         }
                                               else{
                                         final snackBar = SnackBar(

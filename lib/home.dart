@@ -59,14 +59,7 @@ class _MyHomeState extends State<MyHome> {
               children: [
                 Column(
                   children: [
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    // children: [
-                    // Text(
-                    //   'User',
-                    //   style: TextStyle(
-                    //       fontSize: 27,
-                    //       fontWeight: FontWeight.w700, color: Colors.white),
-                    // ),white
+
                     SizedBox.fromSize(
                       size: Size(115, 115), // button width and height
                       child: ClipOval(
@@ -80,6 +73,7 @@ class _MyHomeState extends State<MyHome> {
                             onTap:() async {
                               try {
                           await dbHelper.makeManager();
+                          await dbHelper.managerTrigger();
                           }
                           catch(e){
                           print(e);

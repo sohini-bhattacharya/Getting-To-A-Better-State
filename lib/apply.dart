@@ -29,6 +29,17 @@ class _ApplyState extends State<Apply> {
     colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
   ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
+  void _approve() async {
+    // row to insert
+    await dbHelper.approvedOrNot(true);
+    print('approved');
+  }
+
+  void _cancel() async {
+    // row to insert
+    await dbHelper.approvedOrNot(false);
+    print('cancelled');
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -120,31 +131,58 @@ class _ApplyState extends State<Apply> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-                                onPressed: () async {
+                                  onPressed: () async {
 
-                                  var v = await dbHelper.predictPremium(gender,int.parse(age));
+                                    var v = await dbHelper.predictPremium(gender,int.parse(age));
 
-                                  await dbHelper.beginTransaction();
-                                  await dbHelper.insertPremium(email, m_id, gender, age, amt);
-                                  // await dbHelper.
-                                  // Navigator.of(context).pop(); // dismiss dialog
-                                  // dialogForApprove();
-                                  setState(() {
-                                    amt = v;
-                                  });
-                                  // print(amt.toString());
-                                  // m_id = await dbHelper.generateManager(gender);
+                                    await dbHelper.beginTransaction();
+                                    await dbHelper.insertPremium(email, m_id, gender, age, amt);
+                                    showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) =>AlertDialog(
+                                          title: Text('Hey'),           // To display the title it is optional
+                                          content: Text('Do you want to commit your changes'),   // Message which will be pop up on the screen
+                                          // Action widget which will provide the user to acknowledge the choice
+                                          actions: [
+                                            TextButton(                     // FlatButton widget is used to make a text to work like a button
 
-                                },
+                                              onPressed: () {
+                                                _cancel();
+                                                Navigator.pop(context, 'Cancel');
 
-                                child: Text(
-                                  'Estimate Premium',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
+                                              },             // function used to perform after pressing the button
+                                              child: Text('CANCEL'),
+                                            ),
+                                            TextButton(
+
+                                              onPressed: () {
+                                                _approve();
+                                                Navigator.pop(context, 'ACCEPT');
+                                              },
+                                              child: Text('ACCEPT'),
+                                            ),
+                                          ],
+                                        ));
+                                    // await dbHelper.
+                                    // Navigator.of(context).pop(); // dismiss dialog
+                                    // dialogForApprove();
+
+                                    setState(() {
+                                      amt = v;
+                                    });
+                                    // print(amt.toString());
+                                    // m_id = await dbHelper.generateManager(gender);
+
+                                  },
+
+                                  child: Text(
+                                    'Apply for Premium',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
                                       // decoration: TextDecoration.underline,
-                                      color: Colors.white,
-                                      fontSize: 22),
-                                ),
+                                        color: Colors.white,
+                                        fontSize: 22),
+                                  ),
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
@@ -156,61 +194,23 @@ class _ApplyState extends State<Apply> {
 
                               ),
 
-                            TextButton(
-                              onPressed: () async {
-                              },
-                              child: Text("${amt}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Color(0xffD989B5),
-                                    fontSize: 20),
+                              TextButton(
+                                onPressed: () async {
+                                },
+                                child: Text("${amt}",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Color(0xffD989B5),
+                                      fontSize: 20),
+                                ),
+                                style: ButtonStyle(),
                               ),
-                              style: ButtonStyle(),
-                            ),
                             ],
                           ),
                           SizedBox(
                             height: 90,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                              onPressed: () async {
 
-
-                                  await dbHelper.queryRows('a');
-                                  await dbHelper.queryRows('l');
-                                  Navigator.pushNamed(context, 'userProfile');
-
-
-
-                                },
-
-                                child: Text(
-                                  'Apply for Premium',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      // decoration: TextDecoration.underline,
-                                      // color: Color(0xffD989B5),
-                                      color: Colors.white,
-                                      fontSize: 22),
-                                ),
-                                  style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12.0),
-                                              side: BorderSide(color: Color(0xff8921aa))
-                                          )
-                                      )
-                                  )
-                              ),
-
-                            ],
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
 
                         ],
                       ),

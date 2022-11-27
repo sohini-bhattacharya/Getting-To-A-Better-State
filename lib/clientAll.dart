@@ -1,4 +1,9 @@
+import 'package:dbms/userProfile.dart';
 import 'package:flutter/material.dart';
+import 'package:dbms/database_helper.dart';
+
+import 'login.dart';
+import 'managerLogin.dart';
 
 class clientAll extends StatefulWidget {
   const clientAll({Key? key}) : super(key: key);
@@ -8,90 +13,69 @@ class clientAll extends StatefulWidget {
 }
 
 class _clientAllState extends State<clientAll> {
+  final dbHelper = DatabaseHelper.instance;
+
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/login.png'), fit: BoxFit.cover),
-      ),
-      child: Scaffold(
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        body: Stack(
+        elevation: 0,
+      ),
+      body: SafeArea(child:
+      SingleChildScrollView(
+        child: Column(
           children: [
-            Container(),
             Container(
-              padding: EdgeInsets.only(left: 35, top: 130),
+              alignment: Alignment.topLeft,
+              padding: EdgeInsets.only(left: 60 , bottom: 10, top: 50),
               child: Text(
-                'Client All !',
-                style: TextStyle(color: Colors.white, fontSize: 33),
+                'All Company Clients: ',
+                style: new TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()..shader = linearGradient),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            Container( width: MediaQuery.of(context).size.width*0.99,
+                height:  MediaQuery.of(context).size.height*0.66,
+                child: ListView.builder(
+                    itemCount: clientListAll.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0,),
 
-                // children: [
-                //   Container(
-                //     margin: EdgeInsets.only(left: 35, right: 35),
-                children: [Column(
-                  children: [
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    // children: [
-                    Text(
-                      'User',
-                      style: TextStyle(
-                          fontSize: 27, fontWeight: FontWeight.w700),
-                    ),
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundColor: Color(0xff4c505b),
-                      child: IconButton(
+                        leading: Container(
+                          padding: EdgeInsets.only(right: 12.0),
+                          decoration: new BoxDecoration(
+                              border: new Border(
+                                  right: new BorderSide(width: 1.0, color: Colors.purpleAccent))),
+                          child: Icon(Icons.circle, color: Colors.white,size:15),
+                        ),
+                        title: Text(clientListAll[index],textAlign: TextAlign.left,
 
-                          iconSize: 40.0,
-                          color: Colors.white,
-                          onPressed: () { Navigator.pushNamed(context, 'login');},
-                          icon: Icon(
-                            Icons.person,
-                          )),
-                    ),
-                    Text(
-                      'Company',
-                      style: TextStyle(
-                          fontSize: 27, fontWeight: FontWeight.w700),
-                    ),
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundColor: Color(0xff4c505b),
-                      child: IconButton(
-                          iconSize: 40.0,
-                          color: Colors.white,
-                          onPressed: () { Navigator.pushNamed(context, 'manager');},
-                          icon: Icon(
-                            Icons.supervised_user_circle,
-                          )),
-                    ),
-
-                  ],
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //
-                  //
-                  //   ],
-                  // ),
-                  // ],
-                )],
-                // )
-
-              ),
-            ),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16),
+                        ),
+                      );
+                    })),
 
           ],
         ),
       ),
+      ),
     );
+    //      ],
+    // ),
+    // ),
+    //     ),);
   }
 }

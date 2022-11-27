@@ -169,7 +169,7 @@ class _EditState extends State<Edit> {
                                 vertical: 15.0,
                                 horizontal: 15.0,
                               ),
-                              hintText: "Gender",
+                              hintText: "Age",
                               hintStyle: TextStyle(color: Colors.white),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(

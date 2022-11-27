@@ -9,7 +9,7 @@
 // }
 // String email_manager = "";
 //
-// class _ApproveState extends State<Approve> {
+// class _ApproveState extends State<`Approve> {
 //   final dbHelper = DatabaseHelper.instance;
 //
 //   String password = "";
