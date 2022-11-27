@@ -55,12 +55,20 @@ class _UserProfileState extends State<UserProfile> {
               itemCount: list.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  leading: const Icon(Icons.list),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0,),
+
+                  leading: Container(
+                    padding: EdgeInsets.only(right: 12.0),
+                    decoration: new BoxDecoration(
+                        border: new Border(
+                            right: new BorderSide(width: 1.0, color: Colors.purpleAccent))),
+                    child: Icon(Icons.circle, color: Colors.white,size:15),
+                  ),
                   title: Text(list[index],textAlign: TextAlign.left,
 
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16),
+                        fontSize: 20),
                   ),
                 );
               })),

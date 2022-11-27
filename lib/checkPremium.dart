@@ -49,7 +49,15 @@ class _CheckPremiumState extends State<CheckPremium> {
                     itemCount: preList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
-                        leading: const Icon(Icons.list),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0,),
+
+                        leading: Container(
+                          padding: EdgeInsets.only(right: 12.0),
+                          decoration: new BoxDecoration(
+                              border: new Border(
+                                  right: new BorderSide(width: 1.0, color: Colors.purpleAccent))),
+                          child: Icon(Icons.circle, color: Colors.white,size:15),
+                        ),
                         title: Text(preList[index],textAlign: TextAlign.left,
 
                           style: TextStyle(
