@@ -123,6 +123,7 @@ class DatabaseHelper {
     await db.execute('''
           ROLLBACK
           ''');
+    print('rollback');
   }
 
   Future approvedOrNot(st) async {

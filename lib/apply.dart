@@ -29,6 +29,17 @@ class _ApplyState extends State<Apply> {
     colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
   ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
+  void _approve() async {
+    // row to insert
+    await dbHelper.approvedOrNot(true);
+    print('approved');
+  }
+
+  void _cancel() async {
+    // row to insert
+    await dbHelper.approvedOrNot(false);
+    print('cancelled');
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -126,9 +137,36 @@ class _ApplyState extends State<Apply> {
 
                                   await dbHelper.beginTransaction();
                                   await dbHelper.insertPremium(email, m_id, gender, age, amt);
+                                  showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>AlertDialog(
+                                    title: Text('Hey'),           // To display the title it is optional
+                                    content: Text('Do you want to commit your changes'),   // Message which will be pop up on the screen
+                                    // Action widget which will provide the user to acknowledge the choice
+                                    actions: [
+                                      TextButton(                     // FlatButton widget is used to make a text to work like a button
+
+                                        onPressed: () {
+                                          _cancel();
+                                          Navigator.pop(context, 'Cancel');
+
+                                        },             // function used to perform after pressing the button
+                                        child: Text('CANCEL'),
+                                      ),
+                                      TextButton(
+
+                                        onPressed: () {
+                                          _approve();
+                                          Navigator.pop(context, 'ACCEPT');
+                                        },
+                                        child: Text('ACCEPT'),
+                                      ),
+                                    ],
+                                  ));
                                   // await dbHelper.
                                   // Navigator.of(context).pop(); // dismiss dialog
                                   // dialogForApprove();
+
                                   setState(() {
                                     amt = v;
                                   });
