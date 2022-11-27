@@ -163,7 +163,7 @@ class _MyLoginState extends State<MyLogin> {
                                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                                                 }
-                                        Navigator.pushNamed(context, 'userProfile');
+                                        // Navigator.pushNamed(context, 'userProfile');
                                       }, // button pressed
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -225,7 +225,7 @@ class _MyLoginState extends State<MyLogin> {
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(22.0),
+                                              borderRadius: BorderRadius.circular(12.0),
                                               side: BorderSide(color: Color(0xffD989B5))
                                           )
                                       )

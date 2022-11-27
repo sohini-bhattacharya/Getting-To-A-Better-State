@@ -65,11 +65,12 @@ class _ApplyState extends State<Apply> {
                         children: [
                           TextField(
                             style: TextStyle(color: Colors.white),
+                            obscureText: true,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -91,11 +92,12 @@ class _ApplyState extends State<Apply> {
                           ),
                           TextField(
                             style: TextStyle(color: Colors.white),
+                            obscureText: true,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.white,
+                                    color: Color(0xff8921aa),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -113,7 +115,7 @@ class _ApplyState extends State<Apply> {
                             onChanged: (v) => setState(() => age=v),
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 75,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,11 +139,18 @@ class _ApplyState extends State<Apply> {
                                   'Estimate Premium',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
+                                      // decoration: TextDecoration.underline,
+                                      color: Colors.white,
                                       fontSize: 22),
                                 ),
-                                style: ButtonStyle(),
+                                  style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12.0),
+                                              side: BorderSide(color: Colors.white)
+                                          )
+                                      )
+                                  )
 
                               ),
 
@@ -152,8 +161,8 @@ class _ApplyState extends State<Apply> {
                               child: Text("${amt}",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16),
+                                    color: Color(0xffD989B5),
+                                    fontSize: 20),
                               ),
                               style: ButtonStyle(),
                             ),
@@ -161,7 +170,7 @@ class _ApplyState extends State<Apply> {
                             ],
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 90,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,15 +211,24 @@ class _ApplyState extends State<Apply> {
                                   await dbHelper.queryRows('l');
                                   Navigator.pushNamed(context, 'userProfile');
                                 },
+
                                 child: Text(
                                   'Apply for Premium',
-                                  textAlign: TextAlign.left,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
+                                      // decoration: TextDecoration.underline,
+                                      // color: Color(0xffD989B5),
+                                      color: Colors.white,
                                       fontSize: 22),
                                 ),
-                                style: ButtonStyle(),
+                                  style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12.0),
+                                              side: BorderSide(color: Color(0xff8921aa))
+                                          )
+                                      )
+                                  )
                               ),
 
                             ],
