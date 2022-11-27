@@ -295,6 +295,16 @@ class DatabaseHelper {
 
   }
 
+  // P_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  // EMAIL TEXT,
+  //     M_ID INTEGER,
+  // GENDER TEXT NOT NULL,
+  //     AGE INTEGER NOT NULL,
+  // AMT INTEGER NOT NULL,
+  //     EDIT_TIME DATETIME NOT NULL,
+  // FOREIGN KEY (EMAIL) REFERENCES r(EMAIL),
+  // FOREIGN KEY (M_ID) REFERENCES m(M_ID)
+
 
 
 
@@ -478,6 +488,38 @@ class DatabaseHelper {
 
       result.forEach((row) => print(row));
     }
+
+    //
+    // Future<List> allPremiumDetails(id) async {
+    //
+    // }
+
+  Future<List> joinForPremium(email) async {
+    Database db = await instance.database;
+    List<Map> result = await db.rawQuery('''
+   SELECT * FROM l WHERE EMAIL = "${email}"
+    ''');
+
+    // SELECT table1.column1,table1.column2,table2.column1,....
+    // FROM table1
+    // INNER JOIN table2
+    // ON table1.matching_column = table2.matching_column;
+    List list = [];
+    String a= "";
+    for(int i=0;i<result.length;i++){
+      print("this is list ${i}");
+      a = "ID: " + result[i]["P_ID"].toString() + "    AMT: " + result[i]["AMT"].toString() + "    DATE: " + result[i]["EDIT_TIME"].toString();
+      print(a);
+      list.add(a);
+      print(list);
+    }
+    print("join is here");
+    print(result);
+    print(result[0]);
+    print(result[1]);
+
+    return list;
+  }
 
     Future<List> getAttributes(t, email) async {
       Database db = await instance.database;

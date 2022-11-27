@@ -170,7 +170,7 @@ class _MyLoginState extends State<MyLogin> {
                                         children: <Widget>[
                                           Icon(Icons.arrow_forward, color: Colors.white,
                                           ),// icon
-                                          Text("User", style: TextStyle(color:Colors.white)), // text
+                                          // Text("", style: TextStyle(color:Colors.white)), // text
                                         ],
                                       ),
                                     ),

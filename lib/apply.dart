@@ -20,6 +20,7 @@ String age = "";
 TextEditingController ageController = TextEditingController();
 
 
+
 class _ApplyState extends State<Apply> {
   final dbHelper = DatabaseHelper.instance;
 
@@ -65,7 +66,6 @@ class _ApplyState extends State<Apply> {
                         children: [
                           TextField(
                             style: TextStyle(color: Colors.white),
-                            obscureText: true,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -92,7 +92,6 @@ class _ApplyState extends State<Apply> {
                           ),
                           TextField(
                             style: TextStyle(color: Colors.white),
-                            obscureText: true,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -123,13 +122,16 @@ class _ApplyState extends State<Apply> {
                               TextButton(
                                 onPressed: () async {
 
-                                  amt = await dbHelper.predictPremium(gender,int.parse(age));
+                                  var v = await dbHelper.predictPremium(gender,int.parse(age));
+
                                   await dbHelper.beginTransaction();
                                   await dbHelper.insertPremium(email, m_id, gender, age, amt);
                                   // await dbHelper.
                                   // Navigator.of(context).pop(); // dismiss dialog
                                   // dialogForApprove();
-
+                                  setState(() {
+                                    amt = v;
+                                  });
                                   // print(amt.toString());
                                   // m_id = await dbHelper.generateManager(gender);
 
@@ -156,7 +158,6 @@ class _ApplyState extends State<Apply> {
 
                             TextButton(
                               onPressed: () async {
-
                               },
                               child: Text("${amt}",
                                 textAlign: TextAlign.left,
@@ -166,7 +167,6 @@ class _ApplyState extends State<Apply> {
                               ),
                               style: ButtonStyle(),
                             ),
-
                             ],
                           ),
                           SizedBox(
@@ -177,39 +177,14 @@ class _ApplyState extends State<Apply> {
                             children: [
                               TextButton(
                               onPressed: () async {
-                              // bool result = await showDialog(
-                              // context: context,
-                              // builder: (context) {
-            //                     return AlertDialog(
-            //                     title: Text('Confirmation'),
-            //                     content: Text('Do you want to commit?'),
-            //                       actions: <Widget>[
-            //                               FlatButton(
-            //                             onPressed: () {
-            //                                 Navigator.of(context, rootNavigator: true).pop(false);},
-            //                                   child: Text('No'),
-            //                               ),
-            //                               FlatButton(
-            //                             onPressed: () {
-            //                               Navigator.of(context, rootNavigator: true).pop(true);},
-            //                                   child: Text('Yes'),),],);
-            //                   }},
-            //                       );
-            //                   if (result) {
-            //                     if (missingvalue) {
-            //                       Scaffold.of(context).showSnackBar(new SnackBar(
-            //                         content: new Text('Missing Value'),));
-            //                     } else {
-            //                       saveObject();
-            //                       Navigator.of(context).pop(_myObject); // dismisses the entire widget
-            //                       // }} else {
-            // Navigator.of(context).pop(_myObject); // dismisses the entire widget
-            // }
-            // }
+
 
                                   await dbHelper.queryRows('a');
                                   await dbHelper.queryRows('l');
                                   Navigator.pushNamed(context, 'userProfile');
+
+
+
                                 },
 
                                 child: Text(

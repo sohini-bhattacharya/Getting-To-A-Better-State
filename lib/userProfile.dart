@@ -10,6 +10,8 @@ class UserProfile extends StatefulWidget {
   _UserProfileState createState() => _UserProfileState();
 }
 
+List preList = [];
+
 class _UserProfileState extends State<UserProfile> {
   final dbHelper = DatabaseHelper.instance;
 
@@ -75,7 +77,7 @@ class _UserProfileState extends State<UserProfile> {
           //                 title: Text("List item $index"));
           //           })),),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextButton(
                             onPressed: ()  {
@@ -86,16 +88,16 @@ class _UserProfileState extends State<UserProfile> {
                             },
                             child: Text(
                               'Edit',
-                              textAlign: TextAlign.left,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                  decoration: TextDecoration.underline,
+                                  // decoration: TextDecoration.underline,
                                   color: Colors.white,
-                                  fontSize: 12),
+                                  fontSize: 18),
                             ),
                               style: ButtonStyle(
                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(22.0),
+                                          borderRadius: BorderRadius.circular(12.0),
                                           side: BorderSide(color: Color(0xffD989B5))
                                       )
                                   )
@@ -103,21 +105,23 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                           TextButton(
                             onPressed: () async {
+                              preList = await dbHelper.joinForPremium(email);
+
                               // await functionPremium();
-                              // Navigator.pushNamed(context, 'register');
+                              Navigator.pushNamed(context, 'checkPremium');
                             },
                             child: Text(
                               'Check Premiums',
-                              textAlign: TextAlign.left,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                  decoration: TextDecoration.underline,
+                                  // decoration: TextDecoration.underline,
                                   color: Colors.white,
-                                  fontSize: 12),
+                                  fontSize: 18),
                             ),
                               style: ButtonStyle(
                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(22.0),
+                                          borderRadius: BorderRadius.circular(12.0),
                                           side: BorderSide(color: Color(0xffD989B5))
                                       )
                                   )
@@ -130,16 +134,16 @@ class _UserProfileState extends State<UserProfile> {
                             },
                             child: Text(
                               'Apply',
-                              textAlign: TextAlign.left,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                  decoration: TextDecoration.underline,
+                                  // decoration: TextDecoration.underline,
                                   color: Colors.white,
-                                  fontSize: 12),
+                                  fontSize: 18),
                             ),
                               style: ButtonStyle(
                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(22.0),
+                                          borderRadius: BorderRadius.circular(12.0),
                                           side: BorderSide(color: Color(0xffD989B5))
                                       )
                                   )
